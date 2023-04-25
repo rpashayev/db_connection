@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First Flask MySQL</title>
+</head>
+<body>
+    <h1>Add a Friend</h1>
+    <form action="/add" method="POST">
+        <label for="fname">First Name:</label>
+        <input type="text" name="fname">
+        <label for="lname">Last Name:</label>
+        <input type="text" name="lname">
+        <label for="occ" >Occupation:</label>
+        <input type="text" name="occ">
+        <input type="submit" value="Add Friend">
+    </form>
+
+    <h1>Delete a Friend</h1>
+    <form action="/delete" method="POST">
+        <label for="f_id">ID:</label>
+        <select name="f_id" id="f_id">
+            {% for f in all_friends %}
+                <option value="{{ f.id }}"> {{ f.first_name }} </option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="DELETE">
+    </form>
+
+    <h1>Get a Friend</h1>
+    <form action="/get_friend" method="POST">
+        <label for="fid">ID:</label>
+        <select name="fid">
+            {% for f in all_friends %}
+                <option value="{{ f.id }}"> {{ f.first_name }} </option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="GET">
+    </form>
+    <p>{{ session['friend_fname'] }}</p>
+    <p>{{ session['friend_lname'] }}</p>
+    <p>{{ session['friend_occ'] }}</p>
+    
+
+    <h1>All My Friends</h1>
+    {% for one_friend in all_friends %}
+        <p>First Name: {{ one_friend.first_name }}</p>
+        <p>Last Name: {{ one_friend.last_name }}</p>
+        <p>Occupation: {{ one_friend.occupation }}</p>
+        <hr>
+    {% endfor %}
+
+</body>
+</html>
